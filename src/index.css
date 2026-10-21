@@ -1,0 +1,1048 @@
+/* ==========================================================================
+   Lets Swim World Masters - Official Mobile App Design System
+   Theme: World Aquatics Championship (Pool Deck, Azure Waters & Athletic Excellence)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap');
+
+:root {
+  /* Aquatics Pool Color Tokens */
+  --bg-deep: #051329;
+  --bg-subtle: #081d3d;
+  --bg-surface: #0c264d;
+  --bg-card: rgba(11, 33, 64, 0.76);
+  --bg-card-hover: rgba(16, 46, 88, 0.88);
+  --bg-glass: rgba(56, 189, 248, 0.05);
+  --border-glass: rgba(56, 189, 248, 0.18);
+  --border-focus: rgba(14, 165, 233, 0.65);
+
+  /* Swimming Water & Lane Accents */
+  --water-cyan: #38bdf8;
+  --water-azure: #0ea5e9;
+  --water-deep: #0284c7;
+  --water-light: #7dd3fc;
+  --pool-turquoise: #14b8a6;
+  --accent-cyan: #38bdf8;
+  --accent-blue: #0ea5e9;
+  --accent-emerald: #10b981;
+  --accent-gold: #f59e0b;
+  --accent-amber: #fbbf24;
+  --lane-blue: #2563eb;
+  --lane-red: #ef4444;
+
+  /* Text Colors */
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-sub: #64748b;
+  --text-inverse: #051329;
+
+  /* Typography */
+  --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Sizing & Radius */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+  --bottom-bar-height: 68px;
+
+  /* Water Shadows & Shimmer */
+  --glow-water: 0 4px 20px rgba(14, 165, 233, 0.35);
+  --glow-cyan: 0 0 20px rgba(56, 189, 248, 0.3);
+  --shadow-pool: 0 10px 30px rgba(2, 18, 43, 0.65);
+  --shadow-card: 0 8px 24px rgba(3, 16, 38, 0.5);
+}
+
+/* Base Reset & Box Sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-deep);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Swimming Pool Depth & Ambient Caustics Background */
+body::before {
+  content: '';
+  position: fixed;
+  top: -15%;
+  left: -20%;
+  width: 140%;
+  height: 65%;
+  background: radial-gradient(ellipse at 50% 15%, rgba(14, 165, 233, 0.22) 0%, rgba(6, 182, 212, 0.12) 40%, transparent 75%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -15%;
+  right: -15%;
+  width: 130%;
+  height: 60%;
+  background: radial-gradient(ellipse at 75% 85%, rgba(2, 132, 199, 0.18) 0%, rgba(16, 185, 129, 0.08) 50%, transparent 80%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Outer Wrapper (Center on desktop/tablet, full on mobile) */
+#app {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  height: 100dvh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  background: radial-gradient(circle at 50% 0%, #0a254a 0%, #071a36 45%, #040e21 100%);
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.85);
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Top App Header with Aquatics Pool Styling */
+.app-header {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(env(safe-area-inset-top, 0px) + 12px) 18px 12px 18px;
+  background: rgba(7, 24, 50, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(56, 189, 248, 0.15);
+  z-index: 10;
+  position: relative;
+}
+
+.brand-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 8px rgba(14, 165, 233, 0.35));
+}
+
+.brand-text h1 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  background: linear-gradient(90deg, #ffffff 30%, #7dd3fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.2;
+}
+
+/* Championship Edition Switcher Pill in Header */
+.edition-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(14, 165, 233, 0.16);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+  color: #bae6fd;
+  font-family: var(--font-body);
+  font-size: 0.74rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 3px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.edition-pill:hover, .edition-pill:active {
+  background: rgba(14, 165, 233, 0.28);
+  border-color: #38bdf8;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.edition-flag {
+  font-size: 0.85rem;
+}
+
+.edition-arrow {
+  font-size: 0.65rem;
+  opacity: 0.8;
+  margin-left: 2px;
+}
+
+/* Championship Selector Cards inside Modal */
+.championship-card {
+  cursor: pointer;
+  border-left: 4px solid rgba(56, 189, 248, 0.3);
+  transition: all 0.2s ease;
+}
+
+.championship-card:hover {
+  transform: translateY(-2px);
+  border-color: #38bdf8;
+  background: rgba(14, 165, 233, 0.15);
+}
+
+.championship-card.active-edition {
+  border-left-color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.6);
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.2) 0%, rgba(8, 26, 51, 0.9) 100%);
+  box-shadow: 0 4px 18px rgba(14, 165, 233, 0.3);
+}
+
+.header-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 4px 9px;
+  border-radius: var(--radius-full);
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.12);
+  transition: all 0.2s ease;
+}
+
+.status-badge.offline {
+  background: rgba(245, 158, 11, 0.18);
+  color: #fbbf24;
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: currentColor;
+  box-shadow: 0 0 8px currentColor;
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+/* Water Wave Ambient Top Shimmer Bar */
+.water-wave-banner {
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(90deg, #0284c7, #38bdf8, #14b8a6, #0ea5e9, #0284c7);
+  background-size: 200% 100%;
+  animation: waterFlow 6s linear infinite;
+  box-shadow: 0 1px 6px rgba(14, 165, 233, 0.4);
+  flex-shrink: 0;
+}
+
+@keyframes waterFlow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* Main Content Area */
+.main-view-container {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding: 14px 16px calc(var(--bottom-bar-height) + env(safe-area-inset-bottom, 0px) + 20px) 16px;
+  position: relative;
+}
+
+/* Custom Scrollbar - Smooth Pool Water Feel */
+.main-view-container::-webkit-scrollbar {
+  width: 4px;
+}
+.main-view-container::-webkit-scrollbar-thumb {
+  background: rgba(56, 189, 248, 0.25);
+  border-radius: 4px;
+}
+
+/* View Sections */
+.view-section {
+  display: none;
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.view-section.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Search Box Container with Swimming Pool Feel */
+.search-container {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: transparent;
+  padding-bottom: 12px;
+}
+
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: rgba(10, 30, 58, 0.88);
+  border: 1.5px solid rgba(56, 189, 248, 0.25);
+  border-radius: var(--radius-lg);
+  padding: 0 14px;
+  box-shadow: 0 4px 20px rgba(2, 14, 33, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.25s ease;
+}
+
+.search-input-wrapper:focus-within {
+  border-color: var(--water-cyan);
+  box-shadow: 0 0 18px rgba(14, 165, 233, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  background: rgba(14, 38, 74, 0.95);
+}
+
+.search-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--water-cyan);
+  flex-shrink: 0;
+  margin-right: 10px;
+}
+
+.search-input {
+  width: 100%;
+  height: 48px;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.search-input::placeholder {
+  color: #64748b;
+}
+
+.clear-search-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+}
+
+/* Quick Filter Chips - Swimming Pool Lane Chips */
+.quick-filter-scroll {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 8px 0 2px 0;
+  scrollbar-width: none;
+}
+.quick-filter-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-chip {
+  flex-shrink: 0;
+  padding: 7px 14px;
+  border-radius: var(--radius-full);
+  background: rgba(14, 165, 233, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.22);
+  color: #bae6fd;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.filter-chip:hover, .filter-chip.active {
+  background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%);
+  color: #ffffff;
+  border-color: #38bdf8;
+  box-shadow: 0 4px 14px rgba(14, 165, 233, 0.4);
+  transform: translateY(-1px);
+}
+
+.filter-chip.accent-chip {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.18), rgba(217, 119, 6, 0.12));
+  color: #fde68a;
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+.filter-chip.accent-chip:hover {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #000;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4);
+}
+
+/* Card Styles - Pool Deck Frosted Glass with Lane Line Accents */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+  border-left: 3.5px solid var(--water-cyan);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.08), transparent 70%);
+  pointer-events: none;
+}
+
+.card:active {
+  transform: scale(0.985);
+}
+
+.card.highlighted {
+  border-color: rgba(56, 189, 248, 0.5);
+  border-left-color: var(--accent-amber);
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.15) 0%, rgba(11, 33, 64, 0.92) 100%);
+  box-shadow: 0 8px 28px rgba(14, 165, 233, 0.22);
+}
+
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.athlete-title-group {
+  flex: 1;
+}
+
+.athlete-name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.2px;
+  line-height: 1.25;
+}
+
+.athlete-sub {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.athlete-kr-name {
+  display: inline-block;
+  margin-left: 6px;
+  color: #38bdf8;
+  font-size: 0.95rem;
+  font-weight: 700;
+  background: rgba(14, 165, 233, 0.18);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  padding: 1px 7px;
+  border-radius: 4px;
+  vertical-align: middle;
+}
+
+.gender-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  letter-spacing: 0.2px;
+  vertical-align: middle;
+}
+
+.gender-badge.gender-m {
+  background: rgba(14, 165, 233, 0.2);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.45);
+  box-shadow: 0 0 8px rgba(14, 165, 233, 0.2);
+}
+
+.gender-badge.gender-w {
+  background: rgba(244, 63, 94, 0.2);
+  color: #fb7185;
+  border: 1px solid rgba(244, 63, 94, 0.45);
+  box-shadow: 0 0 8px rgba(244, 63, 94, 0.2);
+}
+
+.entry-venue-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #94a3b8;
+  margin-top: 3px;
+}
+
+.entry-venue-tag.wca {
+  color: #7dd3fc;
+}
+
+.entry-venue-tag.ocbc {
+  color: #f472b6;
+}
+
+.entry-venue-tag.relay {
+  color: #34d399;
+}
+
+.venue-info-box {
+  background: rgba(14, 165, 233, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-left: 3.5px solid var(--water-cyan);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  margin-bottom: 14px;
+}
+
+.team-badge {
+  color: #38bdf8;
+  font-weight: 600;
+  background: rgba(14, 165, 233, 0.14);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.78rem;
+}
+
+.myteam-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text-muted);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  flex-shrink: 0;
+  font-size: 1.1rem;
+}
+
+.myteam-btn.in-team {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  color: #000;
+  border-color: transparent;
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.45);
+  transform: scale(1.08);
+}
+
+/* Event Entry List inside Athlete Card */
+.entry-items-container {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-top: 10px;
+  border-top: 1px solid rgba(56, 189, 248, 0.12);
+  padding-top: 10px;
+}
+
+.entry-pill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 12px;
+  background: rgba(5, 19, 41, 0.6);
+  border: 1px solid rgba(56, 189, 248, 0.1);
+  border-radius: var(--radius-sm);
+  font-size: 0.83rem;
+  transition: background 0.15s ease;
+}
+
+.entry-pill:hover {
+  background: rgba(14, 165, 233, 0.12);
+}
+
+.entry-event-title {
+  font-weight: 600;
+  color: #f1f5f9;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.entry-meta-tags {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Electronic Touchpad Time Badge */
+.time-badge {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: #38bdf8;
+  font-size: 0.98rem;
+  letter-spacing: 0.3px;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 8px rgba(56, 189, 248, 0.35);
+}
+
+.rank-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-muted);
+}
+
+.rank-badge.top-seed {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(217, 119, 6, 0.25));
+  color: #fde68a;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+/* Stats Summary Card - Sunlit Pool Deck Surface */
+.summary-banner {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.2) 0%, rgba(2, 132, 199, 0.12) 100%);
+  border: 1.5px solid rgba(56, 189, 248, 0.25);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-bottom: 16px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(3, 18, 42, 0.4);
+}
+
+.stat-item h3 {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.1;
+  text-shadow: 0 2px 8px rgba(14, 165, 233, 0.3);
+}
+
+.stat-item p {
+  font-size: 0.72rem;
+  color: #bae6fd;
+  margin-top: 4px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+/* Empty State & Loader */
+.state-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 20px;
+  text-align: center;
+}
+
+.state-icon {
+  width: 56px;
+  height: 56px;
+  margin-bottom: 14px;
+  color: var(--water-cyan);
+  opacity: 0.9;
+}
+
+.state-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 6px;
+}
+
+.state-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  max-width: 280px;
+  line-height: 1.45;
+}
+
+/* Timeline Layout (My Team & Schedule) - Starting Blocks Style */
+.timeline-day-selector {
+  display: flex;
+  gap: 7px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  margin-bottom: 8px;
+  scrollbar-width: none;
+}
+.timeline-day-selector::-webkit-scrollbar {
+  display: none;
+}
+
+.day-tab-btn {
+  flex-shrink: 0;
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  background: rgba(14, 165, 233, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.18);
+  color: #bae6fd;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  line-height: 1.25;
+}
+
+.day-tab-btn.active {
+  background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%);
+  color: #ffffff;
+  border-color: #38bdf8;
+  box-shadow: 0 4px 16px rgba(14, 165, 233, 0.45);
+  transform: translateY(-1px);
+}
+
+/* Aquatic Session Headers (Morning / Afternoon) */
+.session-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #7dd3fc;
+  margin: 20px 0 10px 0;
+  padding-bottom: 6px;
+  border-bottom: 1.5px solid rgba(56, 189, 248, 0.2);
+}
+
+.session-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(14, 165, 233, 0.18);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.timeline-card {
+  border-left: 3.5px solid var(--water-cyan);
+}
+
+.timeline-time {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #38bdf8;
+  background: rgba(14, 165, 233, 0.12);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* Action Buttons (단톡방 일정 복사, 카드 이미지) */
+.utility-actions-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.btn-primary {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 50%, #38bdf8 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 13px 14px;
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 16px rgba(14, 165, 233, 0.4);
+}
+
+.btn-primary:active {
+  transform: scale(0.97);
+}
+
+.btn-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: rgba(14, 165, 233, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  color: #bae6fd;
+  border-radius: var(--radius-md);
+  padding: 13px 14px;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:active {
+  background: rgba(14, 165, 233, 0.2);
+}
+
+/* Bottom Navigation Bar - Frosted Pool Deck Glass */
+.bottom-nav {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: calc(var(--bottom-bar-height) + env(safe-area-inset-bottom, 0px));
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: rgba(6, 20, 42, 0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1.5px solid rgba(56, 189, 248, 0.16);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 20;
+}
+
+.nav-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: #64748b;
+  width: 25%;
+  height: 100%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav-item svg {
+  width: 22px;
+  height: 22px;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.nav-item span {
+  font-size: 0.72rem;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.nav-item.active {
+  color: #38bdf8;
+}
+
+.nav-item.active svg {
+  transform: translateY(-2px);
+  color: #38bdf8;
+  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.6));
+}
+
+.nav-badge {
+  position: absolute;
+  top: 8px;
+  right: calc(50% - 20px);
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  border-radius: 9px;
+  background: #f59e0b;
+  color: #000;
+  font-size: 0.68rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.4);
+}
+
+/* Modal Bottom Sheet - Poolside Athletic Score Sheet */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 10, 24, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 100;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.bottom-sheet {
+  width: 100%;
+  max-width: 480px;
+  max-height: 85dvh;
+  background: #091e3d;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  border: 1.5px solid rgba(56, 189, 248, 0.25);
+  border-bottom: none;
+  box-shadow: 0 -10px 40px rgba(2, 12, 28, 0.9);
+  display: flex;
+  flex-direction: column;
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.modal-overlay.active .bottom-sheet {
+  transform: translateY(0);
+}
+
+.sheet-handle {
+  width: 44px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(56, 189, 248, 0.35);
+  margin: 10px auto 4px auto;
+  flex-shrink: 0;
+}
+
+.sheet-header {
+  padding: 14px 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.15);
+  background: rgba(14, 165, 233, 0.05);
+}
+
+.sheet-content {
+  padding: 20px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.sheet-close-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Toast Notifications */
+.toast-container {
+  position: fixed;
+  bottom: calc(var(--bottom-bar-height) + env(safe-area-inset-bottom, 0px) + 16px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 200;
+  pointer-events: none;
+}
+
+.toast {
+  background: rgba(9, 30, 60, 0.95);
+  border: 1px solid var(--water-cyan);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: 0 4px 18px rgba(14, 165, 233, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: toastIn 0.25s ease, toastOut 0.25s ease 2.25s forwards;
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes toastOut {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-8px); }
+}
+
+/* Pool Category Tab in Events View */
+.event-category-filters {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+  scrollbar-width: none;
+}
+.event-category-filters::-webkit-scrollbar {
+  display: none;
+}
